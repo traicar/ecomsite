@@ -12,7 +12,7 @@ const App = () => {
     }
 
     const fetchCart = async () => {
-        setCart(await commerce.cart.retrieve());
+        setCart(await commerce.cart.retrieve())
     }
 
     const handleAddToCart = async (productId, quantity) => {
@@ -26,11 +26,11 @@ const App = () => {
         fetchCart();
     }, []);
 
-      return (
+    return (
         <div>
-            <Navbar totalItems={cart.total_items}/>
-            <Products products={products} onAddToCart={handleAddToCart} />
-       <Cart cart={cart}/>
+            <Navbar totalItems={cart.total_items} />
+           {/* <Products products={products} onAddToCart={handleAddToCart} /> */}
+            <Cart cart={cart} />
         </div>
     )
 }
