@@ -2,12 +2,15 @@ import React from 'react'
 import { Container, Typography, Button, Grid } from '@material-ui/core';
 import useStyles from './styles';
 import CartItem from './CartItem/CartItem';
+import { Link } from 'react-router-dom';
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, handleRemoveFromCart, handleEmptyCart, handleUpdateCartQty }) => {
     const classes = useStyles();
 
     const EmptyCart = () => (
-        <Typography variant="subtitle1"> You do not have any items in the cart. Let's get you some treats!</Typography>
+        <Typography variant="subtitle1"> You do not have any items in the cart.
+            <Link to="/" className={classes.link}>Let's get you some treats!</Link>
+        </Typography>
     );
 
     const FilledCart = () => (
@@ -15,7 +18,7 @@ const Cart = ({ cart }) => {
             <Grid container spacing={3}>
                 {cart.line_items.map((item) => (
                     <Grid item xs={12} sm={4} key={item.id}>
-                        <CartItem item={item} />
+                        <CartItem item={item} onUpdateCardQty={handleUpdateCartQty} onRemoveFromCart={handleRemoveFromCart}/>
                     </Grid>
                 ))}
             </Grid>
@@ -24,7 +27,7 @@ const Cart = ({ cart }) => {
                     Subtotal: {cart.subtotal.formatted_with_symbol}
                 </Typography>
                 <div>
-                    <Button className={classes.emptyButton} size="large" type="button" color="secondary" variant="contained">Empty Cart</Button>
+                    <Button className={classes.emptyButton} size="large" type="button" color="secondary" variant="contained" onclick={handleEmptyCart}>Empty Cart</Button>
                     <Button className={classes.checkoutButton} size="large" type="button" color="primary" variant="contained">Checkout</Button>
                 </div>
             </div>
